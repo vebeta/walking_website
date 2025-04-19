@@ -1,0 +1,17 @@
+{% extends 'main_page/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>list of trails</h1>
+    {% if obj %}
+        {% for el in obj %}
+            <div>
+                <h2>{{ el.title }}</h2>
+                <p>{{ el.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>На данный момент на сайте нет маршрутов</p>
+    {% endif %}
+{% endblock %}
