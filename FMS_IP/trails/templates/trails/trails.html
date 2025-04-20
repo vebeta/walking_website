@@ -7,7 +7,7 @@
     {% if obj %}
         {% for el in obj %}
             <div>
-                <h2>{{ el.title }}</h2>
+                <h2><a href="{{ el.get_absolute_url }}">{{ el.title }}</a></h2>
                 <p>{{ el.description }}</p>
             </div>
         {% endfor %}

@@ -21,13 +21,3 @@ class User(models.Model):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)'''
-
-"""class RegisterForm(, CreateView):
-    form_class = UserCreationForm
-    template_name = 'users/templates/users/register_form.html'
-    success_url = reverse_lazy('login')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Регистрация')
-        return (list(context.items()) + list(c_def.items()))"""

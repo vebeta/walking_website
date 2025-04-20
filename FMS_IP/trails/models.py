@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 class Trail(models.Model):
     title = models.CharField('Название', max_length=70)
@@ -7,12 +9,17 @@ class Trail(models.Model):
     rate = models.IntegerField('Рейтинг', default=0)
     is_published = models.BooleanField(default=True)
 
+    slug = models.SlugField('URL', unique=True, max_length=255, db_index=True)
+
     categ = models.ManyToManyField('Category') # , on_delete=models.SET_NULL
 
     #user = orm.relationship('User')
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('trail', kwargs={'trl_id': self.pk})
 
     class Meta:
         verbose_name = "Маршрут"

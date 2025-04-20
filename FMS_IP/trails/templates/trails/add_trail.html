@@ -1,0 +1,17 @@
+{% extends 'main_page/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>Test add of trails</h1>
+    <form action="{% url 'addtrail' %}" method="post">
+        {% csrf_token %}
+
+        {% for el in form %}
+        <p><label class="form-label" for="{{ el.id_for_label }}">{{ el.label }}: </label>{{ el }}</p>
+        <div class="form-error">{{ el.errors }}</div>
+        {% endfor %}
+
+        <button type="submit">Добавить</button>
+    </form>
+{% endblock %}
