@@ -1,6 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 
+'''urls_lst = {
+    'home': 'home',
+    'about': 'about',
+    'trails': 'trails',
+    'register': 'register',
+    'login': 'login',
+    'profile': 'profile'
+}
+'''
 
 def index(request):
     data = {
