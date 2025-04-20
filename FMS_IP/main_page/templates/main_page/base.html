@@ -37,5 +37,28 @@
 <main role="main" class="container">
     {% block content %}{% endblock %}
 </main>
+
+{% if page_obj.has_other_pages %}
+    <nav class="list-pages">
+        <ul>
+            {% if page_obj.number > 3 %}
+                <li class="page-num">
+                    <a href="?page=1">&lt;</a>
+                </li>
+            {% endif %}
+            {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <li class="page-num">{{ p }}</li>
+                {% elif page_obj.number|add:-1 <= p <= page_obj.number|add:1 %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </nav>
+{% endif %}
+
 </body>
 </html>

@@ -8,6 +8,7 @@ class TrailsAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     list_editable = ('is_published',)
     list_filter = ('id', 'title', 'date', 'rate', 'is_published')
+    prepopulated_fields = {'slug': ('title', )}
 
 
 class CategoryAdmin(admin.ModelAdmin):

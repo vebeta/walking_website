@@ -19,7 +19,7 @@ class Trail(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('trail', kwargs={'trl_id': self.pk})
+        return reverse('trail', kwargs={'trl_slug': self.slug})
 
     class Meta:
         verbose_name = "Маршрут"
