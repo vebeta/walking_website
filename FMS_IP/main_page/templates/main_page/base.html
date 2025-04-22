@@ -25,12 +25,17 @@
                 <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Поиск</button>
             </form>
-
+            {% if request.user.is_authenticated %}
+            <p>
+                <a class="btn btn-primary " href="{% url 'profile' %}">Профиль</a>
+                <a class="btn btn-success" href="{% url 'logout' %}">Выйти</a>
+            </p>
+            {% else %}
             <p>
                 <a class="btn btn-primary " href="{% url 'register' %}">Зарегистрироваться</a>
                 <a class="btn btn-success" href="{% url 'login' %}">Войти</a>
             </p>
-
+            {% endif %}
         </div>
     </nav>
 </header>

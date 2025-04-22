@@ -3,5 +3,16 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>login</h1>
+    <h1>Авторизация</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% for el in form %}
+        <p><label class="form-label" for="{{ el.id_for_label }}">{{ el.label }}: </label>{{ el }}</p>
+        <div class="form-error">{{ el.errors }}</div>
+        {% endfor %}
+        <button type="submit">Войти</button>
+    </form>
+
 {% endblock %}
