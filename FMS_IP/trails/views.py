@@ -12,7 +12,7 @@ class TrailsHome(DataMixin, ListView):
     model = Trail
     template_name = 'trails/trails.html'
     context_object_name = 'obj'
-    paginate_by = 1
+    paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,7 +20,7 @@ class TrailsHome(DataMixin, ListView):
         return dict(list(context.items()) + list(uniq_ctxt.items()))
 
     def get_queryset(self):
-        return Trail.objects.filter(is_published=True)
+        return Trail.objects.filter(is_published=True).prefetch_related('categ').order_by('date')
 
 
 class TrailPage(DataMixin, DetailView):
