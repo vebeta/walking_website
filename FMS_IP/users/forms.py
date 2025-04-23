@@ -1,19 +1,19 @@
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
-from .models import *
-
-class RegisterForm(forms.Form):
-    name = forms.CharField(label='Имя', max_length=40)
-    surname = forms.CharField(label='Фамилия', max_length=40)
-    birth_date = forms.DateField(label='Дата рождения')
-    email = forms.EmailField(label='Почта', unique=True)
-    hashed_password = forms.CharField(label='Пароль')
-
-    #def get_context_data(self, **kwargs):
-        #context = super().get_context_data(**kwargs)
-        #c_def = self.get_user_context(title='Регистрация')
-        #return (list(context.items()) + list(c_def.items()))
+from django.contrib.auth.models import User
 
 
-class LoginForm(forms.Form):
-    email = forms.EmailField(label='Почта', unique=True)
-    hashed_password = forms.CharField(label='Пароль')
+class RegisterUserForm(UserCreationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    email = forms.EmailField(label='Почта', widget=forms.EmailInput(attrs={'class': 'form-input'}))
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))

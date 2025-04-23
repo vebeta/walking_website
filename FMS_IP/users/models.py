@@ -4,11 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class User(models.Model):
-    name = models.CharField('Имя', max_length=40)
-    surname = models.TextField('Фамилия', max_length=40)
-    birth_date = models.DateField('Дата рождения')
-    email = models.EmailField('Электронная почта', unique=True)
-    hashed_password = models.CharField('Пароль')
+    username = models.CharField('Логин')
+    email = models.EmailField('Почта')
+    password1 = models.CharField('Пароль')
+    password2 = models.CharField('Повтор пароля')
     #sf_trails = orm.relationship(Trail, back_populates='user')
 
     def __str__(self):
