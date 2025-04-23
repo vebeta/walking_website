@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'main_page',
     'trails.apps.TrailsConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
