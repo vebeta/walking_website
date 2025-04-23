@@ -3,16 +3,272 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+<style>
+    /* Основные стили страницы с фоном */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        min-height: 100vh;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Наложение для улучшения читаемости текста */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+    }
+
+    .auth-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        position: relative;
+        z-index: 1;
+        animation: slideUp 0.6s ease-out, fadeIn 0.8s ease-out;
+    }
+
+    h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.2rem;
+        font-weight: 600;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        animation: fadeIn 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.2s; }
+    .form-group:nth-child(2) { animation-delay: 0.3s; }
+
+    .form-label {
+        color: #2c3e50;
+        font-weight: 500;
+        transform: translateX(-10px);
+        opacity: 0;
+        animation: slideRight 0.5s ease-out forwards;
+    }
+
+    .form-group:nth-child(1) .form-label { animation-delay: 0.3s; }
+    .form-group:nth-child(2) .form-label { animation-delay: 0.4s; }
+
+    .form-control {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        transform: scale(0.98);
+        opacity: 0;
+        animation: scaleIn 0.5s ease-out forwards;
+    }
+
+    .form-group:nth-child(1) .form-control { animation-delay: 0.4s; }
+    .form-group:nth-child(2) .form-control { animation-delay: 0.5s; }
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        outline: none;
+        transform: scale(1);
+    }
+
+    .form-error {
+        color: #dc3545;
+        font-size: 0.9rem;
+        min-height: 20px;
+        transform: translateY(5px);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .global-error {
+        color: #dc3545;
+        text-align: center;
+        margin-bottom: 15px;
+        padding: 10px;
+        background: rgba(220, 53, 69, 0.1);
+        border-radius: 5px;
+        animation: shake 0.5s ease-out;
+    }
+
+    .submit-btn {
+        padding: 12px 24px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        align-self: center;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out forwards;
+        animation-delay: 0.6s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .submit-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-links {
+        text-align: center;
+        margin-top: 20px;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .auth-links a {
+        color: #3498db;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .auth-links a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideRight {
+        from {
+            transform: translateX(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-5px); }
+        40%, 80% { transform: translateX(5px); }
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .auth-container {
+            margin: 20px;
+            padding: 20px;
+            animation: none;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            animation: none;
+        }
+
+        .form-group,
+        .form-label,
+        .form-control,
+        .submit-btn {
+            animation: none !important;
+            opacity: 1;
+            transform: none;
+        }
+    }
+</style>
+
+<div class="auth-container">
     <h1>Авторизация</h1>
 
-    <form method="post">
+    <form method="post" class="auth-form">
         {% csrf_token %}
-        <div class="form-error">{{ form.non_field_errors }}</div>
+
+        {% if form.non_field_errors %}
+            <div class="global-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+
         {% for el in form %}
-        <p><label class="form-label" for="{{ el.id_for_label }}">{{ el.label }}: </label>{{ el }}</p>
-        <div class="form-error">{{ el.errors }}</div>
+        <div class="form-group">
+            <label class="form-label" for="{{ el.id_for_label }}">{{ el.label }}</label>
+            {{ el }}
+            <div class="form-error">{{ el.errors }}</div>
+        </div>
         {% endfor %}
-        <button type="submit">Войти</button>
+
+        <button type="submit" class="submit-btn">Войти</button>
+
+        <div class="auth-links">
+            <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+            <a href="{% url 'register' %}">Регистрация</a>
+        </div>
     </form>
+</div>
 
 {% endblock %}

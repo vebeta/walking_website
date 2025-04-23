@@ -3,17 +3,133 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>list of trails</h1>
+<style>
+    /* Основные стили страницы с фоном */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    /* Наложение для улучшения читаемости текста */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+    }
+
+    .trails-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        position: relative;
+        z-index: 1;
+        color: #fff; /* Белый текст для контраста */
+    }
+
+    h1 {
+        color: #fff;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Стили для карточек маршрутов */
+    .trail-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .trail-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .trail-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .trail-card h2 {
+        margin: 0 0 15px 0;
+        color: #2c3e50;
+        font-size: 1.5rem;
+    }
+
+    .trail-card h2 a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .trail-card h2 a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+
+    .trail-card p {
+        color: #555;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Стили для сообщения об отсутствии маршрутов */
+    .no-trails {
+        text-align: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 8px;
+        color: #2c3e50;
+        font-size: 1.2rem;
+        margin-top: 30px;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .trail-list {
+            grid-template-columns: 1fr;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<div class="trails-container">
+    <h1>Список маршрутов</h1>
     {% if obj %}
-        {% for el in obj %}
-            {% if el.is_published %}
-            <div>
-                <h2><a href="{{ el.get_absolute_url }}">{{ el.title }}</a></h2>
-                <p>{{ el.description }}</p>
-            </div>
-            {% endif %}
-        {% endfor %}
+        <div class="trail-list">
+            {% for el in obj %}
+                <div class="trail-card">
+                    <h2><a href="{{ el.get_absolute_url }}">{{ el.title }}</a></h2>
+                    <p>{{ el.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>На данный момент на сайте нет маршрутов</p>
+        <div class="no-trails">
+            <p>На данный момент на сайте нет маршрутов</p>
+        </div>
     {% endif %}
+</div>
 {% endblock %}

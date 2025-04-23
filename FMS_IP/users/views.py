@@ -45,3 +45,7 @@ def profile(request):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+
+def password_reset(request):
+    return redirect('login')

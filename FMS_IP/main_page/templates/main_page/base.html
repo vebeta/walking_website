@@ -11,6 +11,150 @@
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
     <link rel="stylesheet" href="{% static 'C:\Users\vladk\Documents\Проекты на питоне\pythonProject_FMS_IP\FMS_IP\main_page\static\main_page\css\main_page.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --success-color: #28a745;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--dark-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .navbar .fa {
+            margin-right: 5px;
+        }
+
+        .search-form {
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 15px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-outline-success{
+            color: #78bec6;
+            border-color: #78bec6;
+            --bs-btn-active-bg: #526B6E;
+            --bs-btn-active-border-color: #526B6E;
+        }
+
+        .btn-outline-success:hover{
+            background-color: #526B6E;
+            border-color: #526B6E;
+        }
+
+        .btn-primary {
+            background-color: #78bec6;
+            border: none;
+            --bs-btn-hover-border: none;
+            --bs-btn-active-bg: #373737;
+            --bs-btn-active-border: none;
+        }
+
+        .btn-success {
+            background-color: #2b4b54;
+            border: none;
+            --bs-btn-hover-border: none;
+            --bs-btn-active-bg: #373737;
+            --bs-btn-active-border: none;
+        }
+
+        main.container {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .list-pages {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .list-pages ul {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-pages li {
+            margin: 0 5px;
+        }
+
+        .list-pages a,
+        .list-pages li.page-num {
+            display: inline-block;
+            padding: 5px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .list-pages a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .list-pages li.page-num {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        @media (max-width: 992px) {
+            .navbar .container-fluid {
+                flex-direction: column;
+            }
+
+            .search-form {
+                margin: 10px 0;
+                max-width: 100%;
+            }
+
+            .auth-buttons {
+                margin-top: 10px;
+                justify-content: center;
+            }
+        }
+    </style>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -21,21 +165,20 @@
             <a href="{% url 'trails' %}"><i class="fas fa-map"></i> Маршруты</a>
             <a href="{% url 'about' %}"><i class="fas fa-address-card"></i> О нас</a>
 
-            <form class="d-flex justify-content-end" role="search">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Поиск</button>
+            <form class="search-form d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
             </form>
-            {% if request.user.is_authenticated %}
-            <p>
-                <a class="btn btn-primary " href="{% url 'profile' %}">Профиль</a>
-                <a class="btn btn-success" href="{% url 'logout' %}">Выйти</a>
-            </p>
-            {% else %}
-            <p>
-                <a class="btn btn-primary " href="{% url 'register' %}">Зарегистрироваться</a>
-                <a class="btn btn-success" href="{% url 'login' %}">Войти</a>
-            </p>
-            {% endif %}
+
+            <div class="auth-buttons">
+                {% if request.user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% url 'profile' %}"><i class="fas fa-user"></i> Профиль</a>
+                    <a class="btn btn-outline-light" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Регистрация</a>
+                    <a class="btn btn-success" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 </header>
@@ -48,22 +191,30 @@
         <ul>
             {% if page_obj.number > 3 %}
                 <li class="page-num">
-                    <a href="?page=1">&lt;</a>
+                    <a href="?page=1">&laquo;</a>
                 </li>
             {% endif %}
+
             {% for p in paginator.page_range %}
                 {% if page_obj.number == p %}
                     <li class="page-num">{{ p }}</li>
-                {% elif page_obj.number|add:-1 <= p <= page_obj.number|add:1 %}
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
                     <li class="page-num">
                         <a href="?page={{ p }}">{{ p }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
 
+            {% if page_obj.number < paginator.num_pages|add:-2 %}
+            <li class="page-num">
+                <a href="?page={{ paginator.num_pages }}">&raquo;</a>
+            </li>
+        {% endif %}
+
         </ul>
     </nav>
 {% endif %}
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
