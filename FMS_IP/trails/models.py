@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
@@ -12,6 +13,7 @@ class Trail(models.Model):
     slug = models.SlugField('URL', unique=True, max_length=255, db_index=True)
 
     categ = models.ManyToManyField('Category') # , on_delete=models.SET_NULL
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='created_trails', null=True)
 
     #user = orm.relationship('User')
 

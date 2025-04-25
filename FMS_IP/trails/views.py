@@ -33,9 +33,14 @@ class TrailPage(DataMixin, DetailView):
 class AddTrail(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddTrailForm
     template_name = 'trails/add_trail.html'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('users:login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         uniq_ctxt = self.get_user_context(title='Добавление маршрута')
         return dict(list(context.items()) + list(uniq_ctxt.items()))
+
+    def form_valid(self, form):
+        ob = form.save(commit=False)
+        ob.author = self.request.user
+        return super().form_valid(form)

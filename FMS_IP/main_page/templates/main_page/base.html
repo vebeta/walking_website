@@ -164,6 +164,7 @@
             <a href="{% url 'home' %}"><i class="fas fa-home"></i> Главная</a>
             <a href="{% url 'trails' %}"><i class="fas fa-map"></i> Маршруты</a>
             <a href="{% url 'about' %}"><i class="fas fa-address-card"></i> О нас</a>
+            <a href="{% url 'addtrail' %}"><i class="fa-solid fa-square-plus"></i> Добавить маршрут</a>
 
             <form class="search-form d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
@@ -172,11 +173,11 @@
 
             <div class="auth-buttons">
                 {% if request.user.is_authenticated %}
-                    <a class="btn btn-primary" href="{% url 'profile' %}"><i class="fas fa-user"></i> Профиль</a>
-                    <a class="btn btn-outline-light" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                    <a class="btn btn-primary" href="{{ request.user.get_absolute_url }}"><i class="fas fa-user"></i> Профиль</a>
+                    <a class="btn btn-outline-light" href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
                 {% else %}
-                    <a class="btn btn-primary" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Регистрация</a>
-                    <a class="btn btn-success" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                    <a class="btn btn-primary" href="{% url 'users:register' %}"><i class="fas fa-user-plus"></i> Регистрация</a>
+                    <a class="btn btn-success" href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a>
                 {% endif %}
             </div>
         </div>

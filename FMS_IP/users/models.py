@@ -1,22 +1,19 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.views.generic import CreateView
-from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse
 
 
-class User(models.Model):
-    username = models.CharField('Логин')
-    email = models.EmailField('Почта')
-    password1 = models.CharField('Пароль')
-    password2 = models.CharField('Повтор пароля')
+class User(AbstractUser):
+    first_name = models.CharField('', blank=True, null=True, default='')
+    birth_date = models.DateTimeField('Дата рождения', blank=True, null=True)
+    slug = models.SlugField('URL', unique=True, max_length=255, db_index=True)
     #sf_trails = orm.relationship(Trail, back_populates='user')
 
+    #def show(self):
+        #return list(self.username, self.first_name, self.last_name, self.email, self.birth_date)
+
     def __str__(self):
-        return self.name
+        return self.username
 
-
-
-'''    def set_password(self, password):
-        self.hashed_password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.hashed_password, password)'''
+    def get_absolute_url(self):
+        return reverse('users:profile', kwargs={'usr_slug': self.slug})

@@ -3,5 +3,10 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>Profile</h1>
+    <h1>Личный кабинет</h1>
+    <p>Логин: {{ usr_obj.username }}</p>
+    <p>Имя: {{ usr_obj.first_name }}</p>
+    <p>Фамилия: {{ usr_obj.last_name }}</p>
+    <p>Почта: {{ usr_obj.email }}</p>
+    <p>Дата рождения: {{ usr_obj.birth_date }}</p>
 {% endblock %}
