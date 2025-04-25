@@ -133,3 +133,22 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login and logout staff
+#LOGOUT_REDIRECT_URL = 'home'
+
+#<<Email>> for password reset
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "Vlad1slavKhegay@yandex.ru"
+EMAIL_HOST_PASSWORD = 'iffjeejajydjtnkd'
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+#Custom user model
+AUTH_USER_MODEL = 'users.User'

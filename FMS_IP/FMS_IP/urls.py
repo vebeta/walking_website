@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("main_page.urls")),
     path('trails/', include("trails.urls")),
-    path('user/', include("users.urls"))
+    path('user/', include(("users.urls", 'users'), namespace='users'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + debug_toolbar_urls()
 
 #handler404 = pageNotFound  ссылается на main_page/urls
