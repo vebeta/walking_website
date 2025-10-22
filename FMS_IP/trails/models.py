@@ -6,6 +6,7 @@ from django.urls import reverse
 class Trail(models.Model):
     title = models.CharField('Название', max_length=70)
     description = models.TextField('Описание')
+    map = models.CharField('Карта', default='') # эмбед происходит как текст, а должен как html символы/ мб проблема не в бд, а в джиндже/// <script type="text/javascript" charset="utf-8" async src="{{ trail.map }}"></script>
     date = models.DateTimeField('Дата создания', auto_now=True)
     rate = models.IntegerField('Рейтинг', default=0)
     is_published = models.BooleanField(default=True)
