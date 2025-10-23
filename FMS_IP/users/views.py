@@ -21,7 +21,7 @@ class RegisterUser(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('users:profile')
+        return redirect('users:profile', usr_slug=user.slug)
 
 
 class LoginUser(LoginView):
@@ -34,7 +34,7 @@ class LoginUser(LoginView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('users:profile')
+        return reverse_lazy('home')
 
 
 class ProfileUser(LoginRequiredMixin, DetailView):

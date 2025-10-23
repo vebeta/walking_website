@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from debug_toolbar.toolbar import debug_toolbar_urls
 
+from .views import custom_404_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("main_page.urls")),
@@ -28,7 +30,7 @@ urlpatterns = [
     path('user/', include(("users.urls", 'users'), namespace='users'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + debug_toolbar_urls()
 
-#handler404 = pageNotFound  ссылается на main_page/urls
+handler404 = custom_404_view
 
 '''if not settings.TESTING:
     urlpatterns = [
