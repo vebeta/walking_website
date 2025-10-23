@@ -3,7 +3,13 @@
 {% block title %}{{ trail.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ trail.title }}</h1>
-    <iframe src="{{ trail.map }}" width="70%" height="500" frameborder="0"></iframe>
-    <p>{{ trail.description }}</p>
+    <h1 align="left">{{ trail.title }}</h1>
+    <br>
+    <map>
+        <div class="map-container">
+            <iframe src="{{ trail.map }}" width="1000" height="500" frameborder="0"></iframe>
+        </div>
+    </map>
+    <br>
+    <p style="font-size: 20px">{{ trail.description }}</p>
 {% endblock %}

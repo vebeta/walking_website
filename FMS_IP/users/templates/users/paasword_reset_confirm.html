@@ -1,0 +1,26 @@
+{% extends 'main_page/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h1>Новый пароль</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="global-error">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    {% for el in form %}
+    <div class="form-group">
+        <label class="form-label" for="{{ el.id_for_label }}">{{ el.label }}</label>
+        {{ el }}
+        <div class="form-error">{{ el.errors }}</div>
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="submit-btn">Сохранить новый пароль</button>
+</form>
+
+{% endblock %}
